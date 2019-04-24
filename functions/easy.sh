@@ -5,9 +5,6 @@
 # URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
-source /opt/pgblitz/functions/core.sh
-source /opt/pgblitz/functions/easy.sh
-
 easyinstall () {
 
 # menu interface for our special users :D

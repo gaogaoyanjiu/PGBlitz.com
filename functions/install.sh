@@ -5,27 +5,30 @@
 # URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
-installselector () {
-
-if [[ ! -e "/opt/...." ]]; then
-
-
-
-
-}
-
+source /opt/pgblitz/functions/core.sh
+source /opt/pgblitz/functions/easy.sh
 
 updateprime () {
+# easy start var for easy installer
+easy=off
+
 # Changing the Numbers will Force a Certain Section to Rerun
 abc="/var/plexguide"
 mkdir -p ${abc}
 chmod 0775 ${abc}
 chown 1000:1000 ${abc}
 
+# creates default folers and sets permissions
+mkdir -p /var/plexguide
+chmod 0775 /var/plexguide
+chown 1000:1000 /var/plexguide
+
 mkdir -p /opt/appdata/plexguide
 chmod 0775 /opt/appdata/plexguide
 chown 1000:1000 /opt/appdata/plexguide
 
+core serverid
+# default variables that get created; important to the project start
 variable /var/plexguide/pgfork.project "UPDATE ME"
 variable /var/plexguide/pgfork.version "changeme"
 variable /var/plexguide/tld.program "portainer"
@@ -105,7 +108,6 @@ fi
   core hetzner &>/dev/null &
   core gcloud
   core cleaner &>/dev/null &
-  core serverid
   core watchtower
   core prune
   customcontainers &>/dev/null &
@@ -192,9 +194,7 @@ dockerinstall () {
   fi
 }
 
-docstart () {
-   ansible-playbook /opt/plexguide/menu/pg.yml --tags docstart
-}
+docstart () { ansible-playbook /opt/plexguide/menu/pg.yml --tags docstart }
 
 emergency() {
   variable /var/plexguide/emergency.display "On"
@@ -287,9 +287,7 @@ mergerinstall () {
     rm mergerfs*_amd64.deb
 }
 
-motd () {
-  ansible-playbook /opt/plexguide/menu/motd/motd.yml
-}
+motd () { ansible-playbook /opt/plexguide/menu/motd/motd.yml }
 
 mountcheck () {
   bash /opt/plexguide/menu/pgcloner/solo/pgui.sh
@@ -333,7 +331,7 @@ pgshield() { if [ ! -e "/opt/pgshield/place.holder" ]; then
 echo 'pgshield' > /var/plexguide/pgcloner.rolename
 echo 'PGShield' > /var/plexguide/pgcloner.roleproper
 echo 'PGShield' > /var/plexguide/pgcloner.projectname
-echo 'v8.7' > /var/plexguide/pgcloner.projectversion
+echo '87' > /var/plexguide/pgcloner.projectversion
 echo 'pgshield.sh' > /var/plexguide/pgcloner.startlink
 ansible-playbook "/opt/plexguide/menu/pgcloner/corev2/primary.yml"; fi }
 
