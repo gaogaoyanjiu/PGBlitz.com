@@ -380,6 +380,7 @@ prune () { ansible-playbook /opt/plexguide/menu/prune/main.yml }
 
 pythonstart () {
 
+  installedansible="$(ansible --version | head -n 1 | awk '{print $2}')"
   ansible="2.7.8"
   pip="19.0.2"
 
@@ -401,9 +402,13 @@ pythonstart () {
       netaddr
   python -m pip install --disable-pip-version-check --upgrade --force-reinstall pip==${pip}
   python -m pip install --disable-pip-version-check --upgrade --force-reinstall setuptools
-  python -m pip install --disable-pip-version-check --upgrade --force-reinstall ansible==${1-$ansible}
 
-  ## Copy pip to /usr/bin
+  # Skip Ansible Install if Version Output Matches
+  if [[ "$ansible" != "$installedansible" ]]; then
+  pip install --disable-pip-version-check --upgrade --force-reinstall ansible==${1-$ansible}
+  fi
+
+  # Copy pip to /usr/bin
   cp /usr/local/bin/pip /usr/bin/pip
   cp /usr/local/bin/pip3 /usr/bin/pip3
 
