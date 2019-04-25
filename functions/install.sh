@@ -10,6 +10,7 @@ source /opt/plexguide/functions/easy.sh
 
 # install support
 source /opt/plexguide/functions/install/aptupdate.sh
+source /opt/plexguide/functions/install/cleaner.sh
 source /opt/plexguide/functions/install/dependency.sh
 source /opt/plexguide/functions/install/docker.sh
 source /opt/plexguide/functions/install/customcontainers.sh
@@ -151,12 +152,6 @@ core () {
 ######################################################### Core Installer Pieces
 
 alias_install () { ansible-playbook /opt/plexguide/menu/alias/alias.yml }
-
-cleaner () {
-  ansible-playbook /opt/plexguide/menu/pg.yml --tags autodelete &>/dev/null &
-  ansible-playbook /opt/plexguide/menu/pg.yml --tags clean &>/dev/null &
-  ansible-playbook /opt/plexguide/menu/pg.yml --tags clean-encrypt &>/dev/null &
-}
 
 folders () { ansible-playbook /opt/plexguide/menu/installer/folders.yml }
 
