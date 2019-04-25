@@ -427,6 +427,9 @@ pythonstart () {
 }
 
 serverid () {
+
+if [[ "$easy" != "on" ]]; then
+
 tee <<-EOF
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -454,9 +457,15 @@ EOF
   echo "$typed" > /var/plexguide/server.id
   sleep 1
   fi
+else
+  rand="$RANDOM"
+  echo "Blitz${RANDOM}" > /var/plexguide/server.id
+fi
 }
 
 watchtower () {
+
+if [[ "$easy" != "on" ]]; then
 
   file="/var/plexguide/watchtower.wcheck"
   if [ ! -e "$file" ]; then
@@ -515,6 +524,12 @@ EOF
   badinput
   watchtower
   fi
+else
+  # If "easy == on", this results in a quick install of watchtower
+  watchtowergen
+  ansible-playbook /opt/coreapps/apps/watchtower.yml
+  echo "1" > /var/plexguide/watchtower.wcheck
+fi
 }
 
 watchtowergen () {
