@@ -28,6 +28,7 @@ if [[ "$typed" == "1" ]]; then
   easy="on"
 elif [[ "$typed" == "2" ]]; then
   # nothing happens because easy by default is off
+  easy="off"
 else
   easyinstall
 fi
