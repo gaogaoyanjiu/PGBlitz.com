@@ -16,6 +16,7 @@ source /opt/plexguide/functions/install/gcloud.sh
 source /opt/plexguide/functions/install/emergency.sh
 source /opt/plexguide/functions/install/hetzner.sh
 source /opt/plexguide/functions/install/mergerfs.sh
+source /opt/plexguide/functions/install/newinstall.sh
 source /opt/plexguide/functions/install/pgui.sh
 source /opt/plexguide/functions/install/portainer.sh
 source /opt/plexguide/functions/install/pythonstart.sh
@@ -187,17 +188,6 @@ https://pgui.yourdomain.com | http://pgui.domain.com:8555 | ipv4:8555
 EOF
 read -p 'Acknowledge Info | Press [ENTER] ' typed < /dev/tty
 
-}
-
-newinstall () {
-  rm -rf /var/plexguide/pg.exit 1>/dev/null 2>&1
-  file="${abc}/new.install"
-  if [ ! -e "$file" ]; then
-    touch ${abc}/pg.number && echo off > /tmp/program_source
-    bash /opt/plexguide/menu/version/file.sh
-    file="${abc}/new.install"
-    if [ ! -e "$file" ]; then exit; fi
- fi
 }
 
 # Roles Ensure that PG Replicates and has once if missing; important for startup, cron and etc
