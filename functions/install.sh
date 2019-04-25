@@ -17,6 +17,7 @@ source /opt/plexguide/functions/install/gcloud.sh
 source /opt/plexguide/functions/install/emergency.sh
 source /opt/plexguide/functions/install/hetzner.sh
 source /opt/plexguide/functions/install/mergerfs.sh
+source /opt/plexguide/functions/install/mountcheck.sh
 source /opt/plexguide/functions/install/newinstall.sh
 source /opt/plexguide/functions/install/pgdeploy.sh
 source /opt/plexguide/functions/install/pgedition.sh
@@ -160,30 +161,6 @@ cleaner () {
 folders () { ansible-playbook /opt/plexguide/menu/installer/folders.yml }
 
 motd () { ansible-playbook /opt/plexguide/menu/motd/motd.yml }
-
-mountcheck () {
-  bash /opt/plexguide/menu/pgcloner/solo/pgui.sh
-  ansible-playbook /opt/pgui/pgui.yml
-  ansible-playbook /opt/plexguide/menu/pgui/mcdeploy.yml
-
-tee <<-EOF
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-↘️  PG User Interface (PGUI) Installed / Updated
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-INFORMATION:  PGUI is a simple interface that provides information,
-warnings, and stats that will assist both yourself and tech support!
-To turn this off, goto settings and turn off/on the PG User Interface!
-
-VISIT:
-https://pgui.yourdomain.com | http://pgui.domain.com:8555 | ipv4:8555
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
-read -p 'Acknowledge Info | Press [ENTER] ' typed < /dev/tty
-
-}
 
 # Roles Ensure that PG Replicates and has once if missing; important for startup, cron and etc
 pgcore() { if [ ! -e "/opt/coreapps/place.holder" ]; then ansible-playbook /opt/plexguide/menu/pgbox/pgboxcore.yml; fi }
