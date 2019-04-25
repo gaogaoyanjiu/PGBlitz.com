@@ -10,6 +10,7 @@ source /opt/plexguide/functions/easy.sh
 
 # install support
 source /opt/plexguide/functions/install/aptupdate.sh
+source /opt/plexguide/functions/install/dependency.sh
 source /opt/plexguide/functions/install/docker.sh
 source /opt/plexguide/functions/install/customcontainers.sh
 source /opt/plexguide/functions/install/gcloud.sh
@@ -17,6 +18,8 @@ source /opt/plexguide/functions/install/emergency.sh
 source /opt/plexguide/functions/install/hetzner.sh
 source /opt/plexguide/functions/install/mergerfs.sh
 source /opt/plexguide/functions/install/newinstall.sh
+source /opt/plexguide/functions/install/pgdeploy.sh
+source /opt/plexguide/functions/install/pgedition.sh
 source /opt/plexguide/functions/install/pgui.sh
 source /opt/plexguide/functions/install/portainer.sh
 source /opt/plexguide/functions/install/pythonstart.sh
@@ -154,14 +157,6 @@ cleaner () {
   ansible-playbook /opt/plexguide/menu/pg.yml --tags clean-encrypt &>/dev/null &
 }
 
-dependency () {
-  ospgversion=$(cat /var/plexguide/os.version)
-  if [ "$ospgversion" == "debian" ]; then
-    ansible-playbook /opt/plexguide/menu/dependency/dependencydeb.yml;
-  else
-    ansible-playbook /opt/plexguide/menu/dependency/dependency.yml; fi
-}
-
 folders () { ansible-playbook /opt/plexguide/menu/installer/folders.yml }
 
 motd () { ansible-playbook /opt/plexguide/menu/motd/motd.yml }
@@ -200,22 +195,5 @@ echo 'PGShield' > /var/plexguide/pgcloner.projectname
 echo '87' > /var/plexguide/pgcloner.projectversion
 echo 'pgshield.sh' > /var/plexguide/pgcloner.startlink
 ansible-playbook "/opt/plexguide/menu/pgcloner/corev2/primary.yml"; fi }
-
-pgdeploy () {
-  touch /var/plexguide/pg.edition
-  bash /opt/plexguide/menu/start/start.sh
-}
-
-pgedition () {
-  file="${abc}/path.check"
-  if [ ! -e "$file" ]; then touch ${abc}/path.check && bash /opt/plexguide/menu/dlpath/dlpath.sh; fi
-  # FOR PG-BLITZ
-  file="${abc}/project.deployed"
-    if [ ! -e "$file" ]; then echo "no" > ${abc}/project.deployed; fi
-  file="${abc}/project.keycount"
-    if [ ! -e "$file" ]; then echo "0" > ${abc}/project.keycount; fi
-  file="${abc}/server.id"
-    if [ ! -e "$file" ]; then echo "[NOT-SET]" > ${abc}/rm -rf; fi
-}
 
 prune () { ansible-playbook /opt/plexguide/menu/prune/main.yml }
