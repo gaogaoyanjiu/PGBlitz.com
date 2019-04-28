@@ -6,11 +6,11 @@
 # GNU:        General Public License v3.0
 ################################################################################
 emergency() {
-  variable /var/plexguide/emergency.display "On"
+  variable /pg/var/emergency.display "On"
 if [[ $(ls /opt/appdata/plexguide/emergency) != "" ]]; then
 
 # If not on, do not display emergency logs
-if [[ $(cat /var/plexguide/emergency.display) == "On" ]]; then
+if [[ $(cat /pg/var/emergency.display) == "On" ]]; then
 
 tee <<-EOF
 
@@ -31,6 +31,6 @@ EOF
   read -n 1 -s -r -p "Acknowledge Info | Press [ENTER]"
   echo
 else
-  touch /var/plexguide/emergency.log
+  touch /pg/var/emergency.log
 fi; fi
 }

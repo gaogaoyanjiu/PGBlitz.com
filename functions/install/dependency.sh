@@ -6,7 +6,7 @@
 # GNU:        General Public License v3.0
 ################################################################################
 dependency () {
-  ospgversion=$(cat /var/plexguide/os.version)
+  ospgversion=$(cat /pg/var/os.version)
   if [ "$ospgversion" == "debian" ]; then
     ansible-playbook /opt/plexguide/menu/dependency/dependencydeb.yml;
   else

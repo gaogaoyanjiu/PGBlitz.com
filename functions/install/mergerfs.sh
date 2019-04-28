@@ -14,25 +14,25 @@ mergerinstall () {
 
     apt --fix-broken install -y
     apt-get remove mergerfs -y
-    mkdir -p /var/plexguide
+    mkdir -p /pg/var
 
     if [ "$ub16check" != "" ]; then
     activated=true
-    echo "ub16" > /var/plexguide/mergerfs.version
+    echo "ub16" > /pg/var/mergerfs.version
     wget "https://github.com/trapexit/mergerfs/releases/download/2.25.1/mergerfs_2.25.1.ubuntu-xenial_amd64.deb"
 
     elif [ "$ub18check" != "" ]; then
       activated=true
-      echo "ub18" > /var/plexguide/mergerfs.version
+      echo "ub18" > /pg/var/mergerfs.version
       wget "https://github.com/trapexit/mergerfs/releases/download/2.25.1/mergerfs_2.25.1.ubuntu-bionic_amd64.deb"
 
     elif [ "$deb9check" != "" ]; then
       activated=true
-      echo "deb9" > /var/plexguide/mergerfs.version
+      echo "deb9" > /pg/var/mergerfs.version
       wget "https://github.com/trapexit/mergerfs/releases/download/2.25.1/mergerfs_2.25.1.debian-stretch_amd64.deb"
 
     elif [ "$activated" != "true" ]; then
-      activated=true && echo "ub18 - but didn't detect correctly" > /var/plexguide/mergerfs.version
+      activated=true && echo "ub18 - but didn't detect correctly" > /pg/var/mergerfs.version
       wget "https://github.com/trapexit/mergerfs/releases/download/2.25.1/mergerfs_2.25.1.ubuntu-bionic_amd64.deb"
     else
       apt-get install g++ pkg-config git git-buildpackage pandoc debhelper libfuse-dev libattr1-dev -y

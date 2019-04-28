@@ -6,7 +6,7 @@
 # GNU:        General Public License v3.0
 ################################################################################
 dockerinstall () {
-  ospgversion=$(cat /var/plexguide/os.version)
+  ospgversion=$(cat /pg/var/os.version)
   if [ "$ospgversion" == "debian" ]; then
     ansible-playbook /opt/plexguide/menu/pg.yml --tags dockerdeb
   else
@@ -40,5 +40,5 @@ dockerinstall () {
 }
 
 docstart () {
-ansible-playbook /opt/plexguide/menu/pg.yml --tags docstart 
+ansible-playbook /opt/plexguide/menu/pg.yml --tags docstart
 }

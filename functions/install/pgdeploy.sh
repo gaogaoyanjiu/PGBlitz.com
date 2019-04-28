@@ -6,6 +6,6 @@
 # GNU:        General Public License v3.0
 ################################################################################
 pgdeploy () {
-  touch /var/plexguide/pg.edition
+  touch /pg/var/pg.edition
   bash /opt/plexguide/menu/start/start.sh
 }
