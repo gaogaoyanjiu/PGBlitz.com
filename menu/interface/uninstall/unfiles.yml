@@ -8,7 +8,7 @@
         path: "{{ item }}"
       with_items:
           - /pg/var
-          - /opt/appdata/plexguide
+          - /pg/data/blitz
           - {{path.stdout}}/nzbget
           - {{path.stdout}}/sab
           - {{path.stdout}}/rutorrent

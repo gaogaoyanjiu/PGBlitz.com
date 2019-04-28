@@ -7,7 +7,7 @@
 ################################################################################
 customcontainers () {
 mkdir -p /opt/mycontainers
-touch /opt/appdata/plexguide/rclone.conf
+touch /pg/data/blitz/rclone.conf
 mkdir -p /opt/communityapps/apps
-rclone --config /opt/appdata/plexguide/rclone.conf copy /opt/mycontainers/ /opt/communityapps/apps
+rclone --config /pg/data/blitz/rclone.conf copy /opt/mycontainers/ /opt/communityapps/apps
 }

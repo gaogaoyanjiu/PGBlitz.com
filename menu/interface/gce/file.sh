@@ -370,26 +370,26 @@ if [ "$menu" == "6" ]; then
   fi
   ########## Server Must Not Be Deployed - END
 
-gcloud compute regions list | awk '{print $1}' | tail -n +2 > /tmp/regions.list
+gcloud compute regions list | awk '{print $1}' | tail -n +2 > /pg/tmp/regions.list
 num=0
-echo " " > /tmp/regions.print
+echo " " > /pg/tmp/regions.print
 
 while read p; do
-  echo -n $p >> /tmp/regions.print
-  echo -n " " >> /tmp/regions.print
+  echo -n $p >> /pg/tmp/regions.print
+  echo -n " " >> /pg/tmp/regions.print
 
   num=$[num+1]
   if [ $num == 5 ]; then
     num=0
-    echo " " >> /tmp/regions.print
+    echo " " >> /pg/tmp/regions.print
   fi
-done </tmp/regions.list
+done </pg/tmp/regions.list
 
 ### Part 2
 #gcloud compute regions list | awk '{print $1}' | tail -n +2 > /pg/var/project.region
 
 typed=nullstart
-prange=$(cat /tmp/regions.print)
+prange=$(cat /pg/tmp/regions.print)
 tcheck=""
 break=off
 while [ "$break" == "off" ]; do
@@ -397,7 +397,7 @@ while [ "$break" == "off" ]; do
   echo "--------------------------------------------------------"
   echo "SYSTEM MESSAGE: Google Cloud IP Regions List"
   echo "--------------------------------------------------------"
-  cat /tmp/regions.print
+  cat /pg/tmp/regions.print
   echo "" && echo ""
   read -p 'Type the Name of an IP Region | PRESS [ENTER]: ' typed
   echo ""
@@ -434,8 +434,8 @@ echo "NOTE: Please Standby"
   break=off
   while [ "$break" == off ]; do
 
-  gcloud compute addresses list | grep pg-gce | tail -n +1 > /tmp/ip.delete
-  ipdelete=$(cat /tmp/ip.delete)
+  gcloud compute addresses list | grep pg-gce | tail -n +1 > /pg/tmp/ip.delete
+  ipdelete=$(cat /pg/tmp/ip.delete)
     if [ "$ipdelete" != "" ]; then
     regdelete=$(gcloud compute addresses list | grep pg-gce | head -n +1 | awk '{print $2}')
     addprint=$(gcloud compute addresses list | grep pg-gce | head -n +1 | awk '{print $3}')
@@ -492,24 +492,24 @@ inslist=$(gcloud compute instances list | grep pg-gce)
 
 ### Part 1
 ipregion=$(cat /pg/var/project.ipregion)
-gcloud compute zones list | awk '{print $1}' | tail -n +2 | grep $ipregion > /tmp/zones.list
+gcloud compute zones list | awk '{print $1}' | tail -n +2 | grep $ipregion > /pg/tmp/zones.list
 num=0
-echo " " > /tmp/zones.print
+echo " " > /pg/tmp/zones.print
 
   while read p; do
-    echo -n $p >> /tmp/zones.print
-    echo -n " " >> /tmp/zones.print
+    echo -n $p >> /pg/tmp/zones.print
+    echo -n " " >> /pg/tmp/zones.print
 
     num=$[num+1]
     if [ $num == 4 ]; then
       num=0
-      echo " " >> /tmp/zones.print
+      echo " " >> /pg/tmp/zones.print
     fi
-  done </tmp/zones.list
+  done </pg/tmp/zones.list
 
 ### Part 2
 typed=nullstart
-prange=$(cat /tmp/zones.print)
+prange=$(cat /pg/tmp/zones.print)
 tcheck=""
 break=off
   while [ "$break" == "off" ]; do
@@ -517,7 +517,7 @@ break=off
   echo "--------------------------------------------------------"
   echo "SYSTEM MESSAGE: Google Cloud Server Zones List"
   echo "--------------------------------------------------------"
-  cat /tmp/zones.print
+  cat /pg/tmp/zones.print
   echo ""
   echo ""
   read -p 'Type a Server Zone Name | PRESS [ENTER]: ' typed

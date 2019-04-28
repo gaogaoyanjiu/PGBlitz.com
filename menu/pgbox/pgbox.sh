@@ -62,7 +62,7 @@ rm -rf /pg/var/program.temp && touch /pg/var/program.temp
 
 ### List Out Apps In Readable Order (One's Not Installed)
 sed -i -e "/templates/d" /pg/var/app.list
-touch /tmp/test.99
+touch /pg/tmp/test.99
 num=0
 while read p; do
   echo -n $p >> /pg/var/program.temp
@@ -144,7 +144,7 @@ question2 () {
 image=off
 while read p; do
 
-echo $p > /tmp/program_var
+echo $p > /pg/tmp/program_var
 
 bash /opt/coreapps/apps/image/_image.sh
 done </pg/var/pgbox.buildup
@@ -173,7 +173,7 @@ if [ "$p" == "plex" ]; then bash /opt/plexguide/menu/plex/plex.sh;
 elif [ "$p" == "nzbthrottle" ]; then nzbt; fi
 
 # Store Used Program
-echo $p > /tmp/program_var
+echo $p > /pg/tmp/program_var
 # Execute Main Program
 ansible-playbook /opt/coreapps/apps/$p.yml
 
@@ -181,16 +181,16 @@ if [[ "$edition" == "PG Edition - HD Solo" ]]; then a=b
 else if [ "$croncount" -eq "1" ]; then cronexe; fi; fi
 
 # End Banner
-bash /opt/plexguide/menu/pgbox/endbanner.sh >> /tmp/output.info
+bash /opt/plexguide/menu/pgbox/endbanner.sh >> /pg/tmp/output.info
 
 sleep 2
 done </pg/var/pgbox.buildup
-echo "" >> /tmp/output.info
-cat /tmp/output.info
+echo "" >> /pg/tmp/output.info
+cat /pg/tmp/output.info
 final
 }
 
 # FUNCTIONS END ##############################################################
-echo "" > /tmp/output.info
+echo "" > /pg/tmp/output.info
 initial
 question1

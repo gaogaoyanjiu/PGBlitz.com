@@ -105,13 +105,13 @@
   ############ TMP
     - name: TMP Check
       stat:
-        path: /mnt/tmp
+        path: /mnt/pg/tmp
       register: tmp
 
     - name: Create GDrive Folders
       file: "path={{item}} state=directory"
       with_items:
-        - /mnt/tmp
+        - /mnt/pg/tmp
       when: tmp.stat.exists == False
       ignore_errors: yes
 
@@ -183,15 +183,15 @@
     - name: Create Basic Directories
       file: "path={{item}} state=directory mode=0775 owner=1000 group=1000 recurse=true"
       with_items:
-        - "/opt/appdata/plexguide"
+        - "/pg/data/blitz"
         - "/opt/communityapps"
         - "/opt/coreapps"
         - "/pg/var"
         - "/mnt/move"
         - "/pg/var/logs"
-        - "/opt/appdata/plexguide/keys/unprocessed"
-        - "/opt/appdata/plexguide/keys/processed"
-        - "/opt/appdata/plexguide/keys/badjson"
+        - "/pg/data/blitz/keys/unprocessed"
+        - "/pg/data/blitz/keys/processed"
+        - "/pg/data/blitz/keys/badjson"
         - "{{path.stdout}}/pgops"
         - "{{path.stdout}}/downloads"
         - "{{path.stdout}}/nzb"

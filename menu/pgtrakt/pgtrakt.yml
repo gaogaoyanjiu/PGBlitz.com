@@ -83,12 +83,12 @@
     - name: Create Basic Directories
       file: "path={{item}} state=directory mode=0775 owner=1000 group=1000"
       with_items:
-        - "/opt/appdata/pgtrakt/"
+        - "/pg/data/pgtrakt/"
 
     - name: Transfer Files
       copy:
         src: /opt/plexguide/menu/pgtrakt
-        dest: /opt/appdata
+        dest: /pg/data
         owner: "1000"
         group: "1000"
         mode: a+x
@@ -96,8 +96,8 @@
 
     - name: Import default config
       template:
-        src: /opt/appdata/pgtrakt/config.json.sample
-        dest: /opt/appdata/pgtrakt/config.json
+        src: /pg/data/pgtrakt/config.json.sample
+        dest: /pg/data/pgtrakt/config.json
         owner: "1000"
         group: "1000"
         mode: 0775
@@ -105,14 +105,14 @@
 
     - name: Set pgtrak.py as executable
       file:
-        path: /opt/appdata/pgtrakt/pgtrakt.py
+        path: /pg/data/pgtrakt/pgtrakt.py
         owner: '1000'
         group: '1000'
         mode: a+x
 
     - name: "Create /usr/local/bin symlink"
       file:
-        src: "/opt/appdata/pgtrakt/pgtrakt.py"
+        src: "/pg/data/pgtrakt/pgtrakt.py"
         dest: "/bin/pgtrakt"
         state: link
 
@@ -129,7 +129,7 @@
 
     - name: PGTrakt Service
       template:
-        src: /opt/appdata/pgtrakt/systemd/pgtrakt.service
+        src: /pg/data/pgtrakt/systemd/pgtrakt.service
         dest: /etc/systemd/system/pgtrakt.service
         force: yes
 

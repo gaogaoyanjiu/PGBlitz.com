@@ -5,9 +5,9 @@
 # URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
-program=$(cat /tmp/program_var)
+program=$(cat /pg/tmp/program_var)
 domain=$(cat /pg/var/server.domain)
-port=$(cat /tmp/program_port)
+port=$(cat /pg/tmp/program_port)
 ip=$(cat /pg/var/server.ip)
 ports=$(cat /pg/var/server.ports)
 

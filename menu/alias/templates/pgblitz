@@ -24,7 +24,7 @@ EOF
 
 mkdir -p /opt/plexguide/roles/log
 mkdir -p /pg/var/logs
-mkdir -p /opt/appdata/plexguide
+mkdir -p /pg/data/blitz
 
 source /opt/plexguide/functions/install.sh
 

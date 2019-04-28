@@ -7,7 +7,7 @@
 ################################################################################
 emergency() {
   variable /pg/var/emergency.display "On"
-if [[ $(ls /opt/appdata/plexguide/emergency) != "" ]]; then
+if [[ $(ls /pg/data/blitz/emergency) != "" ]]; then
 
 # If not on, do not display emergency logs
 if [[ $(cat /pg/var/emergency.display) == "On" ]]; then
@@ -24,8 +24,8 @@ EOF
   countmessage=0
   while read p; do
     let countmessage++
-    echo -n "${countmessage}. " && cat /opt/appdata/plexguide/emergency/$p
-  done <<< "$(ls /opt/appdata/plexguide/emergency)"
+    echo -n "${countmessage}. " && cat /pg/data/blitz/emergency/$p
+  done <<< "$(ls /pg/data/blitz/emergency)"
 
   echo
   read -n 1 -s -r -p "Acknowledge Info | Press [ENTER]"

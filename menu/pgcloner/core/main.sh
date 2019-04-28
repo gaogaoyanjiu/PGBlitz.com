@@ -132,5 +132,5 @@ esac
 }
 
 # FUNCTIONS END ##############################################################
-echo "" > /tmp/output.info
+echo "" > /pg/tmp/output.info
 mainbanner

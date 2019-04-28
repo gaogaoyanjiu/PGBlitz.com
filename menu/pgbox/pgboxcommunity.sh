@@ -81,7 +81,7 @@ question1 () {
     echo "##PG-Community" >> /opt/communityapps/apps/$p.yml
 
     mkdir -p /opt/mycontainers
-    touch /opt/appdata/plexguide/rclone.conf
+    touch /pg/data/blitz/rclone.conf
   done </pg/var/app.list
     touch /pg/var/community.app
   #fi
@@ -184,7 +184,7 @@ question2 () {
 image=off
 while read p; do
 
-echo $p > /tmp/program_var
+echo $p > /pg/tmp/program_var
 
 bash /opt/communityapps/apps/image/_image.sh
 done </pg/var/pgbox.buildup
@@ -213,7 +213,7 @@ if [ "$p" == "plex" ]; then bash /opt/plexguide/menu/plex/plex.sh;
 elif [ "$p" == "nzbthrottle" ]; then nzbt; fi
 
 # Store Used Program
-echo $p > /tmp/program_var
+echo $p > /pg/tmp/program_var
 # Execute Main Program
 ansible-playbook /opt/communityapps/apps/$p.yml
 
@@ -221,12 +221,12 @@ if [[ "$edition" == "PG Edition - HD Solo" ]]; then a=b
 else if [ "$croncount" -eq "1" ]; then cronexe; fi; fi
 
 # End Banner
-bash /opt/plexguide/menu/pgbox/endbanner.sh >> /tmp/output.info
+bash /opt/plexguide/menu/pgbox/endbanner.sh >> /pg/tmp/output.info
 
 sleep 2
 done </pg/var/pgbox.buildup
-echo "" >> /tmp/output.info
-cat /tmp/output.info
+echo "" >> /pg/tmp/output.info
+cat /pg/tmp/output.info
 final
 }
 
@@ -328,5 +328,5 @@ esac
 }
 
 # FUNCTIONS END ##############################################################
-echo "" > /tmp/output.info
+echo "" > /pg/tmp/output.info
 mainbanner

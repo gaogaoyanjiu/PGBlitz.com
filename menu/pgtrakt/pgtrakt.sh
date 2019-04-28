@@ -524,19 +524,19 @@ read -p '🌎 Acknowledge Info | Press [ENTER] ' typed < /dev/tty
 echo
 fi
 
-file="/opt/appdata/radarr/config.xml"
+file="/pg/data/radarr/config.xml"
 if [ -e "$file" ]
 then
-info=$( cat /opt/appdata/radarr/config.xml )
+info=$( cat /pg/data/radarr/config.xml )
 info=${info#*<ApiKey>} 1>/dev/null 2>&1
 info1=$( echo ${info:0:32} ) 1>/dev/null 2>&1
 echo "$info1" > /pg/var/pgtrak.rapi
 fi
 
-file="/opt/appdata/sonarr/config.xml"
+file="/pg/data/sonarr/config.xml"
 if [ -e "$file" ]
 then
-info=$( cat /opt/appdata/sonarr/config.xml )
+info=$( cat /pg/data/sonarr/config.xml )
 info=${info#*<ApiKey>} 1>/dev/null 2>&1
 info2=$( echo ${info:0:32} ) 1>/dev/null 2>&1
 echo "$info2" > /pg/var/pgtrak.sapi

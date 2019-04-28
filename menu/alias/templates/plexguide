@@ -28,7 +28,7 @@ source /opt/plexguide/menu/functions/install.sh
 
 mkdir -p /opt/plexguide/roles/log
 mkdir -p /pg/var/logs
-mkdir -p /opt/appdata/plexguide
+mkdir -p /pg/data/blitz
 
 sudocheck
 missingpull

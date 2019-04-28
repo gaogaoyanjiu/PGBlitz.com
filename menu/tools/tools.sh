@@ -9,7 +9,7 @@ function gcheck {
 
 edition=$(cat /pg/var/pg.edition)
 if [ "$edition" == "PG Edition - GDrive" ] || [ "$edition" == "PG Edition - GCE Feed" ]; then
-gcheck=$(cat /opt/appdata/plexguide/rclone.conf 2>/dev/null | grep 'gdrive' | head -n1 | cut -b1-8)
+gcheck=$(cat /pg/data/blitz/rclone.conf 2>/dev/null | grep 'gdrive' | head -n1 | cut -b1-8)
   if [ "$gcheck" != "[gdrive]" ]; then
 tee <<-EOF
 
@@ -34,7 +34,7 @@ tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 NOTE: If backing up your files, they are located at the folllowing
-location: /opt/appdata
+location: /pg/data
 
 You're on OWN because it's too complex for PG to standardize a backup.
 Example, you may have a second hard drive, may store it to the same

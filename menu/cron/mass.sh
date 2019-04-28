@@ -8,13 +8,13 @@
 
 # KEY VARIABLE RECALL & EXECUTION
 mkdir -p /pg/var/cron/
-mkdir -p /opt/appdata/plexguide/cron
+mkdir -p /pg/data/blitz/cron
 # FUNCTIONS START ##############################################################
 source /opt/plexguide/menu/functions/functions.sh
 
 weekrandom () {
   while read p; do
-  echo "$p" > /tmp/program_var
+  echo "$p" > /pg/tmp/program_var
   echo $(($RANDOM % 23)) > /pg/var/cron/cron.hour
   echo $(($RANDOM % 59)) > /pg/var/cron/cron.minute
   echo $(($RANDOM % 6))> /pg/var/cron/cron.day
@@ -25,7 +25,7 @@ weekrandom () {
 
 dailyrandom () {
   while read p; do
-  echo "$p" > /tmp/program_var
+  echo "$p" > /pg/tmp/program_var
   echo $(($RANDOM % 23)) > /pg/var/cron/cron.hour
   echo $(($RANDOM % 59)) > /pg/var/cron/cron.minute
   echo "*/1" > /pg/var/cron/cron.day
@@ -36,7 +36,7 @@ dailyrandom () {
 
 manualuser () {
   while read p; do
-  echo "$p" > /tmp/program_var
+  echo "$p" > /pg/tmp/program_var
   bash /opt/plexguide/menu/cron/cron.sh
   done </pg/var/pgbox.buildup
   exit

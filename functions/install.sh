@@ -29,6 +29,7 @@ source /opt/plexguide/functions/install/serverid.sh
 source /opt/plexguide/functions/install/watchtower.sh
 source /opt/plexguide/functions/install/pginstall.sh
 source /opt/plexguide/functions/install/prune.sh
+source /opt/plexguide/functions/install/pgshield.sh
 
 updateprime () {
 # easy start var for easy installer
@@ -45,9 +46,9 @@ mkdir -p /pg/var
 chmod 0775 /pg/var
 chown 1000:1000 /pg/var
 
-mkdir -p /opt/appdata/plexguide
-chmod 0775 /opt/appdata/plexguide
-chown 1000:1000 /opt/appdata/plexguide
+mkdir -p /pg/data/blitz
+chmod 0775 /pg/data/blitz
+chown 1000:1000 /pg/data/blitz
 
 # new folder system
 mkdir -p /pg/data/blitz
@@ -58,16 +59,16 @@ mkdir -p /pg/var
 chmod 0775 /pg/var
 chown 1000:1000 /pg/var
 
-mkdir -p /pg/tmp
-chmod 0775 /pg/tmp
-chown 1000:1000 /pg/tmp
+mkdir -p /pg/pg/tmp
+chmod 0775 /pg/pg/tmp
+chown 1000:1000 /pg/pg/tmp
 
 core serverid
 # default variables that get created; important to the project start
 variable /pg/var/pgfork.project "UPDATE ME"
 variable /pg/var/pgfork.version "changeme"
 variable /pg/var/tld.program "portainer"
-variable /opt/appdata/plexguide/plextoken ""
+variable /pg/data/blitz/plextoken ""
 variable /pg/var/server.ht ""
 variable /pg/var/server.email "NOT-SET"
 variable /pg/var/server.domain "NOT-SET"
@@ -120,21 +121,11 @@ core () {
       cat /pg/var/pg."${1}" > /pg/var/pg."${1}".stored;
     fi
 }
-######################################################### Core Installer Pieces
-
+######################################################### Simple Functions
 alias_install () { ansible-playbook /opt/plexguide/menu/alias/alias.yml }
-
 folders () { ansible-playbook /opt/plexguide/menu/installer/folders.yml }
-
 motd () { ansible-playbook /opt/plexguide/menu/motd/motd.yml }
-
+prune () { ansible-playbook /opt/plexguide/menu/prune/main.yml }
 # Roles Ensure that PG Replicates and has once if missing; important for startup, cron and etc
 pgcore() { if [ ! -e "/opt/coreapps/place.holder" ]; then ansible-playbook /opt/plexguide/menu/pgbox/pgboxcore.yml; fi }
 pgcommunity() { if [ ! -e "/opt/communityapps/place.holder" ]; then ansible-playbook /opt/plexguide/menu/pgbox/pgboxcommunity.yml; fi }
-pgshield() { if [ ! -e "/opt/pgshield/place.holder" ]; then
-echo 'pgshield' > /pg/var/pgcloner.rolename
-echo 'PGShield' > /pg/var/pgcloner.roleproper
-echo 'PGShield' > /pg/var/pgcloner.projectname
-echo '87' > /pg/var/pgcloner.projectversion
-echo 'pgshield.sh' > /pg/var/pgcloner.startlink
-ansible-playbook "/opt/plexguide/menu/pgcloner/corev2/primary.yml"; fi }

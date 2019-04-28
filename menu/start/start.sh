@@ -63,18 +63,18 @@ varstart() {
      chmod -R 1000:1000 /pg/var 1>/dev/null 2>&1
   fi
 
-  file="/opt/appdata/plexguide"
+  file="/pg/data/blitz"
   if [ ! -e "$file" ]; then
-     mkdir -p /opt/appdata/plexguide 1>/dev/null 2>&1
-     chown 0775 /opt/appdata/plexguide 1>/dev/null 2>&1
-     chmod 1000:1000 /opt/appdata/plexguide 1>/dev/null 2>&1
+     mkdir -p /pg/data/blitz 1>/dev/null 2>&1
+     chown 0775 /pg/data/blitz 1>/dev/null 2>&1
+     chmod 1000:1000 /pg/data/blitz 1>/dev/null 2>&1
   fi
 
   ###################### FOR VARIABLS ROLE SO DOESNT CREATE RED - START
   variable /pg/var/pgfork.project "NOT-SET"
   variable /pg/var/pgfork.version "NOT-SET"
   variable /pg/var/tld.program "NOT-SET"
-  variable /opt/appdata/plexguide/plextoken "NOT-SET"
+  variable /pg/data/blitz/plextoken "NOT-SET"
   variable /pg/var/server.ht ""
   variable /pg/var/server.ports "127.0.0.1:"
   variable /pg/var/server.email "NOT-SET"
@@ -146,12 +146,12 @@ varstart() {
 
   # For ZipLocations
   file="/pg/var/data.location"
-  if [ ! -e "$file" ]; then echo "/opt/appdata/plexguide" > /pg/var/data.location; fi
+  if [ ! -e "$file" ]; then echo "/pg/data/blitz" > /pg/var/data.location; fi
 
   space=$(cat /pg/var/data.location)
-  used=$(df -h /opt/appdata/plexguide | tail -n +2 | awk '{print $3}')
-  capacity=$(df -h /opt/appdata/plexguide | tail -n +2 | awk '{print $2}')
-  percentage=$(df -h /opt/appdata/plexguide | tail -n +2 | awk '{print $5}')
+  used=$(df -h /pg/data/blitz | tail -n +2 | awk '{print $3}')
+  capacity=$(df -h /pg/data/blitz | tail -n +2 | awk '{print $2}')
+  percentage=$(df -h /pg/data/blitz | tail -n +2 | awk '{print $5}')
 
   # For the PGBlitz UI
   echo "$used" > /pg/var/pg.used

@@ -74,11 +74,11 @@ done
   rm -rf /var/lib/docker
 
   while true; do
-      read -p "Pay Attention! Do you want to DELETE /opt/appdata (y or n)? " yn
+      read -p "Pay Attention! Do you want to DELETE /pg/data (y or n)? " yn
       case $yn in
           [Yy]* ) echo ""
                   echo "Deleting Your Data Forever - Please Wait!"
-                  rm -rf /opt/appdata
+                  rm -rf /pg/data
                   sleep 3
                   echo "I'm here, I'm there, wait...I'm your DATA! Poof! I'm gone!"
                   sleep 3; break;;
