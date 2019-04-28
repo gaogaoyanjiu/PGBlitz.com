@@ -27,7 +27,8 @@ source /opt/plexguide/functions/install/portainer.sh
 source /opt/plexguide/functions/install/pythonstart.sh
 source /opt/plexguide/functions/install/serverid.sh
 source /opt/plexguide/functions/install/watchtower.sh
-
+source /opt/plexguide/functions/install/pginstall.sh
+source /opt/plexguide/functions/install/prune.sh
 
 updateprime () {
 # easy start var for easy installer
@@ -108,49 +109,6 @@ pgstore "install.installer" "1"
 pgstore "install.prune" "1"
 pgstore "install.mountcheck" "1"
 }
-
-pginstall () {
-# Runs through the install process order
-  updateprime
-  bash /opt/plexguide/menu/pggce/gcechecker.sh
-  core pythonstart
-  core aptupdate
-  core alias_install &>/dev/null &
-  core folders
-  core dependency
-  core mergerinstall
-  core dockerinstall
-  core docstart
-
-touch /pg/var/install.roles
-rolenumber=3
-  # Roles Ensure that PG Replicates and has once if missing; important for startup, cron and etc
-if [[ $(cat /pg/var/install.roles) != "$rolenumber" ]]; then
-  rm -rf /pg/communityapps
-  rm -rf /pg/coreapps
-  rm -rf /pg/pgshield
-
-  pgcore
-  pgcommunity
-  pgshield
-  echo "$rolenumber" > /pg/var/install.roles
-fi
-
-  portainer
-  pgui
-  core motd &>/dev/null &
-  core hetzner &>/dev/null &
-  core gcloud
-  core cleaner &>/dev/null &
-  core watchtower
-  core prune
-  customcontainers &>/dev/null &
-  pgedition
-  core mountcheck
-  emergency
-  pgdeploy
-}
-
 ######################################################### Core INSTALLER
 core () {
 # This process is a function for the menu run down above
@@ -180,5 +138,3 @@ echo 'PGShield' > /pg/var/pgcloner.projectname
 echo '87' > /pg/var/pgcloner.projectversion
 echo 'pgshield.sh' > /pg/var/pgcloner.startlink
 ansible-playbook "/opt/plexguide/menu/pgcloner/corev2/primary.yml"; fi }
-
-prune () { ansible-playbook /opt/plexguide/menu/prune/main.yml }
