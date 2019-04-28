@@ -30,6 +30,5 @@ source /opt/plexguide/functions/install.sh
 
 sudocheck
 missingpull
-
 # pg deploy contains pgdeploy at end
 pginstall
