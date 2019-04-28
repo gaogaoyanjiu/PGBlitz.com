@@ -34,15 +34,15 @@ updateprime () {
 easy=off
 
 # Changing the Numbers will Force a Certain Section to Rerun
-abc="/var/plexguide"
+abc="/pg/var"
 mkdir -p ${abc}
 chmod 0775 ${abc}
 chown 1000:1000 ${abc}
 
 # creates default folers and sets permissions
-mkdir -p /var/plexguide
-chmod 0775 /var/plexguide
-chown 1000:1000 /var/plexguide
+mkdir -p /pg/var
+chmod 0775 /pg/var
+chown 1000:1000 /pg/var
 
 mkdir -p /opt/appdata/plexguide
 chmod 0775 /opt/appdata/plexguide
@@ -59,19 +59,19 @@ chown 1000:1000 /pg/var
 
 core serverid
 # default variables that get created; important to the project start
-variable /var/plexguide/pgfork.project "UPDATE ME"
-variable /var/plexguide/pgfork.version "changeme"
-variable /var/plexguide/tld.program "portainer"
+variable /pg/var/pgfork.project "UPDATE ME"
+variable /pg/var/pgfork.version "changeme"
+variable /pg/var/tld.program "portainer"
 variable /opt/appdata/plexguide/plextoken ""
-variable /var/plexguide/server.ht ""
-variable /var/plexguide/server.email "NOT-SET"
-variable /var/plexguide/server.domain "NOT-SET"
-variable /var/plexguide/pg.number "New-Install"
-variable /var/plexguide/emergency.log ""
-variable /var/plexguide/pgbox.running ""
-pgnumber=$(cat /var/plexguide/pg.number)
+variable /pg/var/server.ht ""
+variable /pg/var/server.email "NOT-SET"
+variable /pg/var/server.domain "NOT-SET"
+variable /pg/var/pg.number "New-Install"
+variable /pg/var/emergency.log ""
+variable /pg/var/pgbox.running ""
+pgnumber=$(cat /pg/var/pg.number)
 
-hostname -I | awk '{print $1}' > /var/plexguide/server.ip
+hostname -I | awk '{print $1}' > /pg/var/server.ip
 file="pg/var/server.hd.path"
 if [ ! -e "$file" ]; then echo "/mnt" > /pg/var/server.hd.path; fi
 
@@ -122,14 +122,14 @@ touch /pg/var/install.roles
 rolenumber=3
   # Roles Ensure that PG Replicates and has once if missing; important for startup, cron and etc
 if [[ $(cat /pg/var/install.roles) != "$rolenumber" ]]; then
-  rm -rf /opt/communityapps
-  rm -rf /opt/coreapps
-  rm -rf /opt/pgshield
+  rm -rf /pg/communityapps
+  rm -rf /pg/coreapps
+  rm -rf /pg/pgshield
 
   pgcore
   pgcommunity
   pgshield
-  echo "$rolenumber" > /var/plexguide/install.roles
+  echo "$rolenumber" > /pg/var/install.roles
 fi
 
   portainer
@@ -150,12 +150,12 @@ fi
 ######################################################### Core INSTALLER
 core () {
 # This process is a function for the menu run down above
-    touch /var/plexguide/install."${1}".stored
-    start=$(cat /var/plexguide/install."${1}")
-    stored=$(cat /var/plexguide/install."${1}".stored)
+    touch /pg/var/install."${1}".stored
+    start=$(cat /pg/var/install."${1}")
+    stored=$(cat /pg/var/install."${1}".stored)
     if [ "$start" != "$stored" ]; then
       $1
-      cat /var/plexguide/pg."${1}" > /var/plexguide/pg."${1}".stored;
+      cat /pg/var/pg."${1}" > /pg/var/pg."${1}".stored;
     fi
 }
 ######################################################### Core Installer Pieces
@@ -170,11 +170,11 @@ motd () { ansible-playbook /opt/plexguide/menu/motd/motd.yml }
 pgcore() { if [ ! -e "/opt/coreapps/place.holder" ]; then ansible-playbook /opt/plexguide/menu/pgbox/pgboxcore.yml; fi }
 pgcommunity() { if [ ! -e "/opt/communityapps/place.holder" ]; then ansible-playbook /opt/plexguide/menu/pgbox/pgboxcommunity.yml; fi }
 pgshield() { if [ ! -e "/opt/pgshield/place.holder" ]; then
-echo 'pgshield' > /var/plexguide/pgcloner.rolename
-echo 'PGShield' > /var/plexguide/pgcloner.roleproper
-echo 'PGShield' > /var/plexguide/pgcloner.projectname
-echo '87' > /var/plexguide/pgcloner.projectversion
-echo 'pgshield.sh' > /var/plexguide/pgcloner.startlink
+echo 'pgshield' > /pg/var/pgcloner.rolename
+echo 'PGShield' > /pg/var/pgcloner.roleproper
+echo 'PGShield' > /pg/var/pgcloner.projectname
+echo '87' > /pg/var/pgcloner.projectversion
+echo 'pgshield.sh' > /pg/var/pgcloner.startlink
 ansible-playbook "/opt/plexguide/menu/pgcloner/corev2/primary.yml"; fi }
 
 prune () { ansible-playbook /opt/plexguide/menu/prune/main.yml }
