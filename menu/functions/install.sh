@@ -7,4 +7,5 @@
 ################################################################################
 
 # This executes pgblitz for users upgrading from 8.6 and below
+ansible-playbook /opt/plexguide/menu/alias/alias.yml
 bash /opt/plexguide/functions/install.sh

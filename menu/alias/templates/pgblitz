@@ -22,13 +22,11 @@ must be installed on a FRESH BOX! Exiting!
 EOF
     exit; fi; fi
 
-source /opt/plexguide/menu/functions/functions.sh
-source /opt/plexguide/menu/functions/start.sh
-source /opt/plexguide/menu/functions/install.sh
-
 mkdir -p /opt/plexguide/roles/log
 mkdir -p /var/plexguide/logs
 mkdir -p /opt/appdata/plexguide
+
+source /opt/plexguide/functions/install.sh
 
 sudocheck
 missingpull
