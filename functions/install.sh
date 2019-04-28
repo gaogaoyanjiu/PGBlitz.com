@@ -48,6 +48,15 @@ mkdir -p /opt/appdata/plexguide
 chmod 0775 /opt/appdata/plexguide
 chown 1000:1000 /opt/appdata/plexguide
 
+# new folder system
+mkdir -p /pg/data/blitz
+chmod 0775 /pg/data/blitz
+chown 1000:1000 /pg/data/blitz
+
+mkdir -p /pg/var
+chmod 0775 /pg/var
+chown 1000:1000 /pg/var
+
 core serverid
 # default variables that get created; important to the project start
 variable /var/plexguide/pgfork.project "UPDATE ME"
@@ -63,15 +72,15 @@ variable /var/plexguide/pgbox.running ""
 pgnumber=$(cat /var/plexguide/pg.number)
 
 hostname -I | awk '{print $1}' > /var/plexguide/server.ip
-file="${abc}/server.hd.path"
-if [ ! -e "$file" ]; then echo "/mnt" > ${abc}/server.hd.path; fi
+file="pg/var/server.hd.path"
+if [ ! -e "$file" ]; then echo "/mnt" > /pg/var/server.hd.path; fi
 
-file="${abc}/new.install"
+file="pg/var/new.install"
 if [ ! -e "$file" ]; then newinstall; fi
 
 ospgversion=$(cat /etc/*-release | grep Debian | grep 9)
-if [ "$ospgversion" != "" ]; then echo "debian"> ${abc}/os.version;
-else echo "ubuntu" > ${abc}/os.version; fi
+if [ "$ospgversion" != "" ]; then echo "debian"> /pg/var/os.version;
+else echo "ubuntu" > /pg/var/os.version; fi
 
 # Set variable numbers, plus number up to force update
 pgstore "install.merger" "1"
@@ -109,10 +118,10 @@ pginstall () {
   core dockerinstall
   core docstart
 
-touch /var/plexguide/install.roles
+touch /pg/var/install.roles
 rolenumber=3
   # Roles Ensure that PG Replicates and has once if missing; important for startup, cron and etc
-if [[ $(cat /var/plexguide/install.roles) != "$rolenumber" ]]; then
+if [[ $(cat /pg/var/install.roles) != "$rolenumber" ]]; then
   rm -rf /opt/communityapps
   rm -rf /opt/coreapps
   rm -rf /opt/pgshield
