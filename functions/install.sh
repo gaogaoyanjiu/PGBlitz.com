@@ -35,9 +35,9 @@ easy=off
 
 # Changing the Numbers will Force a Certain Section to Rerun
 abc="/pg/var"
-mkdir -p ${abc}
-chmod 0775 ${abc}
-chown 1000:1000 ${abc}
+mkdir -p /pg/var
+chmod 0775 /pg/var
+chown 1000:1000 /pg/var
 
 # creates default folers and sets permissions
 mkdir -p /pg/var
@@ -56,6 +56,10 @@ chown 1000:1000 /pg/data/blitz
 mkdir -p /pg/var
 chmod 0775 /pg/var
 chown 1000:1000 /pg/var
+
+mkdir -p /pg/tmp
+chmod 0775 /pg/tmp
+chown 1000:1000 /pg/tmp
 
 core serverid
 # default variables that get created; important to the project start

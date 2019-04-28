@@ -16,24 +16,24 @@ do
 
 # GDrive
 if [[ $(rclone lsd --config /opt/appdata/plexguide/rclone.conf gdrive: | grep "\<plexguide\>") == "" ]]; then
-  echo "🔴 Not Operational "> /var/plexguide/pg.gdrive; else echo "✅ Operational " > /var/plexguide/pg.gdrive; fi
+  echo "🔴 Not Operational "> /pg/var/pg.gdrive; else echo "✅ Operational " > /pg/var/pg.gdrive; fi
 
 if [[ $(ls -la /mnt/gdrive | grep "plexguide") == "" ]]; then
-  echo "🔴 Not Operational"> /var/plexguide/pg.gmount; else echo "✅ Operational" > /var/plexguide/pg.gmount; fi
+  echo "🔴 Not Operational"> /pg/var/pg.gmount; else echo "✅ Operational" > /pg/var/pg.gmount; fi
 
 # TDrive
 if [[ $(rclone lsd --config /opt/appdata/plexguide/rclone.conf tdrive: | grep "\<plexguide\>") == "" ]]; then
-  echo "🔴 Not Operational"> /var/plexguide/pg.tdrive; else echo "✅ Operational" > /var/plexguide/pg.tdrive; fi
+  echo "🔴 Not Operational"> /pg/var/pg.tdrive; else echo "✅ Operational" > /pg/var/pg.tdrive; fi
 
 if [[ $(ls -la /mnt/tdrive | grep "plexguide") == "" ]]; then
-  echo "🔴 Not Operational "> /var/plexguide/pg.tmount; else echo "✅ Operational" > /var/plexguide/pg.tmount; fi
+  echo "🔴 Not Operational "> /pg/var/pg.tmount; else echo "✅ Operational" > /pg/var/pg.tmount; fi
 
 # Union
 if [[ $(rclone lsd --config /opt/appdata/plexguide/rclone.conf pgunion: | grep "\<plexguide\>") == "" ]]; then
-  echo "🔴 Not Operational "> /var/plexguide/pg.union; else echo "✅ Operational" > /var/plexguide/pg.union; fi
+  echo "🔴 Not Operational "> /pg/var/pg.union; else echo "✅ Operational" > /pg/var/pg.union; fi
 
 if [[ $(ls -la /mnt/unionfs | grep "plexguide") == "" ]]; then
-  echo "🔴 Not Operational "> /var/plexguide/pg.umount; else echo "✅ Operational " > /var/plexguide/pg.umount; fi
+  echo "🔴 Not Operational "> /pg/var/pg.umount; else echo "✅ Operational " > /pg/var/pg.umount; fi
 
 # Disk Calculations - 4000000 = 4GB
 
@@ -65,16 +65,16 @@ elif [[ "$leftover" -gt "3000000" && "$diskspace27" == "1" ]]; then
 fi
 
 ##### Warning for Ports Open with Traefik Deployed
-if [[ $(cat /var/plexguide/pg.ports) != "Closed" && $(docker ps --format '{{.Names}}' | grep "traefik") == "traefik" ]]; then
+if [[ $(cat /pg/var/pg.ports) != "Closed" && $(docker ps --format '{{.Names}}' | grep "traefik") == "traefik" ]]; then
   echo "Warning: Traefik deployed with ports open! Server at risk for explotation!" > /opt/appdata/plexguide/emergency/message.a
 elif [ -e "/opt/appdata/plexguide/emergency/message.a" ]; then rm -rf /opt/appdata/plexguide/emergency/message.a; fi
 
-if [[ $(cat /var/plexguide/pg.ports) == "Closed" && $(docker ps --format '{{.Names}}' | grep "traefik") == "" ]]; then
+if [[ $(cat /pg/var/pg.ports) == "Closed" && $(docker ps --format '{{.Names}}' | grep "traefik") == "" ]]; then
   echo "Warning: Apps Cannot Be Accessed! Ports are Closed & Traefik is not enabled! Either deploy traefik or open your ports (which is worst for security)" > /opt/appdata/plexguide/emergency/message.b
 elif [ -e "/opt/appdata/plexguide/emergency/message.b" ]; then rm -rf /opt/appdata/plexguide/emergency/message.b; fi
 ##### Warning for Bad Traefik Deployment - message.c is tied to traefik showing a status! Do not change unless you know what your doing
 touch /opt/appdata/plexguide/traefik.check
-domain=$(cat /var/plexguide/server.domain)
+domain=$(cat /pg/var/server.domain)
 wget -q "https://portainer.${domain}" -O "/opt/appdata/plexguide/traefik.check"
 if [[ $(cat /opt/appdata/plexguide/traefik.check) == "" && $(docker ps --format '{{.Names}}' | grep traefik) == "traefik" ]]; then
   echo "Traefik is Not Deployed Properly! Cannot Reach the Portainer SubDomain!" > /opt/appdata/plexguide/emergency/message.c
@@ -91,17 +91,17 @@ else
 fi
 
 ################# Generate Output
-echo "" > /var/plexguide/emergency.log
+echo "" > /pg/var/emergency.log
 
 if [[ $(ls /opt/appdata/plexguide/emergency) != "" ]]; then
 countmessage=0
 while read p; do
   let countmessage++
-  echo -n "${countmessage}. " >> /var/plexguide/emergency.log
-  echo "$(cat /opt/appdata/plexguide/emergency/$p)" >> /var/plexguide/emergency.log
+  echo -n "${countmessage}. " >> /pg/var/emergency.log
+  echo "$(cat /opt/appdata/plexguide/emergency/$p)" >> /pg/var/emergency.log
 done <<< "$(ls /opt/appdata/plexguide/emergency)"
 else
-  echo "NONE" > /var/plexguide/emergency.log
+  echo "NONE" > /pg/var/emergency.log
 fi
 
 sleep 5

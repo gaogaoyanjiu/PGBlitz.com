@@ -7,7 +7,7 @@
 #################################################################################
 
 # KEY VARIABLE RECALL & EXECUTION
-mkdir -p /var/plexguide/cron/
+mkdir -p /pg/var/cron/
 mkdir -p /opt/appdata/plexguide/cron
 # FUNCTIONS START ##############################################################
 source /opt/plexguide/menu/functions/functions.sh
@@ -15,22 +15,22 @@ source /opt/plexguide/menu/functions/functions.sh
 weekrandom () {
   while read p; do
   echo "$p" > /tmp/program_var
-  echo $(($RANDOM % 23)) > /var/plexguide/cron/cron.hour
-  echo $(($RANDOM % 59)) > /var/plexguide/cron/cron.minute
-  echo $(($RANDOM % 6))> /var/plexguide/cron/cron.day
+  echo $(($RANDOM % 23)) > /pg/var/cron/cron.hour
+  echo $(($RANDOM % 59)) > /pg/var/cron/cron.minute
+  echo $(($RANDOM % 6))> /pg/var/cron/cron.day
   ansible-playbook /opt/plexguide/menu/cron/cron.yml
-  done </var/plexguide/pgbox.buildup
+  done </pg/var/pgbox.buildup
   exit
 }
 
 dailyrandom () {
   while read p; do
   echo "$p" > /tmp/program_var
-  echo $(($RANDOM % 23)) > /var/plexguide/cron/cron.hour
-  echo $(($RANDOM % 59)) > /var/plexguide/cron/cron.minute
-  echo "*/1" > /var/plexguide/cron/cron.day
+  echo $(($RANDOM % 23)) > /pg/var/cron/cron.hour
+  echo $(($RANDOM % 59)) > /pg/var/cron/cron.minute
+  echo "*/1" > /pg/var/cron/cron.day
   ansible-playbook /opt/plexguide/menu/cron/cron.yml
-  done </var/plexguide/pgbox.buildup
+  done </pg/var/pgbox.buildup
   exit
 }
 
@@ -38,7 +38,7 @@ manualuser () {
   while read p; do
   echo "$p" > /tmp/program_var
   bash /opt/plexguide/menu/cron/cron.sh
-  done </var/plexguide/pgbox.buildup
+  done </pg/var/pgbox.buildup
   exit
 }
 

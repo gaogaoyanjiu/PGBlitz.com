@@ -5,9 +5,9 @@
 # URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
-file="/var/plexguide/pg.number"
+file="/pg/var/pg.number"
 if [ -e "$file" ]; then
-  check="$(cat /var/plexguide/pg.number | head -c 1)"
+  check="$(cat /pg/var/pg.number | head -c 1)"
   if [[ "$check" == "5" || "$check" == "6" || "$check" == "7" ]]; then
 
 tee <<-EOF
@@ -27,7 +27,7 @@ source /opt/plexguide/menu/functions/start.sh
 source /opt/plexguide/menu/functions/install.sh
 
 mkdir -p /opt/plexguide/roles/log
-mkdir -p /var/plexguide/logs
+mkdir -p /pg/var/logs
 mkdir -p /opt/appdata/plexguide
 
 sudocheck

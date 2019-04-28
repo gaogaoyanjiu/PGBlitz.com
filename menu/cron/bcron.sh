@@ -6,9 +6,9 @@
 # GNU:        General Public License v3.0
 ################################################################################
 pgrole=$(cat /tmp/program_var)
-path=$(cat /var/plexguide/server.hd.path)
-tarlocation=$(cat /var/plexguide/data.location)
-serverid=$(cat /var/plexguide/pg.serverid)
+path=$(cat /pg/var/server.hd.path)
+tarlocation=$(cat /pg/var/data.location)
+serverid=$(cat /pg/var/pg.serverid)
 
 doc=no
 rolecheck=$(docker ps | grep -c "\<$pgrole\>")

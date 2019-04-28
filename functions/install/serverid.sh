@@ -33,11 +33,11 @@ tee <<-EOF
 ✅️  PASS: Server ID $typed Established
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
-  echo "$typed" > /var/plexguide/server.id
+  echo "$typed" > /pg/var/server.id
   sleep 1
   fi
 else
   rand="$RANDOM"
-  echo "Blitz${RANDOM}" > /var/plexguide/server.id
+  echo "Blitz${RANDOM}" > /pg/var/server.id
 fi
 }

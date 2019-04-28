@@ -6,10 +6,10 @@
 # GNU:        General Public License v3.0
 ################################################################################
 program=$(cat /tmp/program_var)
-domain=$(cat /var/plexguide/server.domain)
+domain=$(cat /pg/var/server.domain)
 port=$(cat /tmp/program_port)
-ip=$(cat /var/plexguide/server.ip)
-ports=$(cat /var/plexguide/server.ports)
+ip=$(cat /pg/var/server.ip)
+ports=$(cat /pg/var/server.ports)
 
 if [ "$program" == "plex" ]; then extra="/web"; else extra=""; fi
 

@@ -17,7 +17,7 @@
         extport: "0"
 
     - name: Token Recall
-      shell: "cat /var/plexguide/plex.token"
+      shell: "cat /pg/var/plex.token"
       register: token
 
     - name: Install pip requirements

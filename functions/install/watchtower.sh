@@ -9,12 +9,12 @@ watchtower () {
 
 if [[ "$easy" != "on" ]]; then
 
-  file="/var/plexguide/watchtower.wcheck"
+  file="/pg/var/watchtower.wcheck"
   if [ ! -e "$file" ]; then
-  echo "4" > /var/plexguide/watchtower.wcheck
+  echo "4" > /pg/var/watchtower.wcheck
   fi
 
-  wcheck=$(cat "/var/plexguide/watchtower.wcheck")
+  wcheck=$(cat "/pg/var/watchtower.wcheck")
     if [[ "$wcheck" -ge "1" && "$wcheck" -le "3" ]]; then
     wexit="1"
     else wexit=0; fi
@@ -39,17 +39,17 @@ EOF
   if [ "$typed" == "1" ]; then
     watchtowergen
     ansible-playbook /opt/coreapps/apps/watchtower.yml
-    echo "1" > /var/plexguide/watchtower.wcheck
+    echo "1" > /pg/var/watchtower.wcheck
   elif [ "$typed" == "2" ]; then
     watchtowergen
     sed -i -e "/plex/d" /tmp/watchtower.set 1>/dev/null 2>&1
     sed -i -e "/emby/d" /tmp/watchtower.set 1>/dev/null 2>&1
     ansible-playbook /opt/coreapps/apps/watchtower.yml
-    echo "2" > /var/plexguide/watchtower.wcheck
+    echo "2" > /pg/var/watchtower.wcheck
   elif [ "$typed" == "3" ]; then
     echo null > /tmp/watchtower.set
     ansible-playbook /opt/coreapps/apps/watchtower.yml
-    echo "3" > /var/plexguide/watchtower.wcheck
+    echo "3" > /pg/var/watchtower.wcheck
   elif [[ "$typed" == "Z" || "$typed" == "z" ]]; then
     if [ "$wexit" == "0" ]; then
 tee <<-EOF
@@ -70,7 +70,7 @@ else
   # If "easy == on", this results in a quick install of watchtower
   watchtowergen
   ansible-playbook /opt/coreapps/apps/watchtower.yml
-  echo "1" > /var/plexguide/watchtower.wcheck
+  echo "1" > /pg/var/watchtower.wcheck
 fi
 }
 
@@ -79,5 +79,5 @@ watchtowergen () {
   while read p; do
     echo -n $p >> /tmp/watchtower.set
     echo -n " " >> /tmp/watchtower.set
-  done </var/plexguide/app.list
+  done </pg/var/app.list
 }

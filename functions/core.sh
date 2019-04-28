@@ -6,13 +6,13 @@
 # GNU:        General Public License v3.0
 ################################################################################
 pgstore () {
-  maindir="/var/plexguide"
+  maindir="/pg/var"
   if [[ ! -e "${maindir}/${1}" ]]; then touch "${maindir}/${1}"; fi
   echo "${2}" > "${maindir}/${1}"
 }
 
 pgrecall () {
-  maindir="/var/plexguide"
+  maindir="/pg/var"
   if [[ ! -e "${maindir}/${1}" ]]; then touch "${maindir}/${1}"; fi
   recallvar=$(cat "${maindir}/${1}")
 }

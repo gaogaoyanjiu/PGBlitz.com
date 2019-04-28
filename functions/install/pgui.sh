@@ -7,10 +7,10 @@
 ################################################################################
 pgui ()
 {
-  file="/var/plexguide/pgui.switch"
-    if [ ! -e "$file" ]; then echo "On" > /var/plexguide/pgui.switch; fi
+  file="/pg/var/pgui.switch"
+    if [ ! -e "$file" ]; then echo "On" > /pg/var/pgui.switch; fi
 
-    pguicheck=$(cat /var/plexguide/pgui.switch)
+    pguicheck=$(cat /pg/var/pgui.switch)
   if [[ "$pguicheck" == "On" ]]; then
 
     dstatus=$(docker ps --format '{{.Names}}' | grep "pgui")

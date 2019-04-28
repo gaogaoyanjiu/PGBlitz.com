@@ -5,7 +5,7 @@
 # URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
-menu=$(cat /var/plexguide/final.choice)
+menu=$(cat /pg/var/final.choice)
 
 if [ "$menu" == "2" ]; then
   echo ""

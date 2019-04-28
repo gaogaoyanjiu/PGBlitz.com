@@ -26,6 +26,6 @@ tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
 sleep 1.5
-file="/var/plexguide/community.app"
-if [ -e "$file" ]; then rm -rf /var/plexguide/community.app; fi
+file="/pg/var/community.app"
+if [ -e "$file" ]; then rm -rf /pg/var/community.app; fi
 bash /opt/plexguide/menu/interface/ending.sh

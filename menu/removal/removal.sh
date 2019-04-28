@@ -119,7 +119,7 @@ file="/opt/coreapps/apps/$typed.yml"
 if [ -e "$file" ]; then
   check=$(cat /opt/coreapps/apps/$typed.yml | grep '##PG-Community')
     if [ "$check" == "##PG-Community" ]; then rm -r /opt/communityapps/apps/$typed.yml; fi
-rm -rf /var/plexguide/community.app
+rm -rf /pg/var/community.app
 fi
 
 sleep 1.5
