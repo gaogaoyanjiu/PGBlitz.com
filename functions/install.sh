@@ -41,14 +41,14 @@ mkdir -p /pg/var
 chmod 0775 /pg/var
 chown 1000:1000 /pg/var
 
-# creates default folers and sets permissions
-mkdir -p /pg/var
-chmod 0775 /pg/var
-chown 1000:1000 /pg/var
+# make old file system incase
+mkdir -p /var/plexguide
+chmod 0775 /var/plexguide
+chown 1000:1000 /var/plexguide
 
-mkdir -p /pg/data/blitz
-chmod 0775 /pg/data/blitz
-chown 1000:1000 /pg/data/blitz
+mkdir -p /opt/appdata/plexguide
+chmod 0775 /opt/appdata/plexguide
+chown 1000:1000 /opt/appdata/plexguide
 
 # new folder system
 mkdir -p /pg/data/blitz
